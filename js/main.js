@@ -19,6 +19,7 @@ tabsContainer.addEventListener("click", (e) =>{
 document.addEventListener ("click", (e) => {
     if(e.target.classList.contains("view-project-btn")){
         togglePortfolioPopup();
+        document.querySelector(".portfolio-popup").scrollTo(0,0);
         portfolioItemDetails(e.target.parentElement);
     }
 })
@@ -31,7 +32,23 @@ function togglePortfolioPopup() {
 
 document.querySelector(".pp-close").addEventListener("click", togglePortfolioPopup);
 
+
+// Hide Popoup on Clicking Outside
+document.addEventListener("click", (e) => {
+    if(e.target.classList.contains("pp-inner")) {
+        togglePortfolioPopup();
+    }
+}) 
+
+
+// Personalise Porfolio PopUps According to User Choice
 function portfolioItemDetails(portfolioItem) {
     document.querySelector(".pp-thumbnail img").src =
     portfolioItem.querySelector(".portfolio-item-thumbnail img").src;
+
+    document.querySelector(".pp-header h3").innerHTML =
+    portfolioItem.querySelector(".portfolio-item-title").innerHTML;
+
+    document.querySelector(".pp-body").innerHTML = 
+    portfolioItem.querySelector(".portfolio-item-details").innerHTML;
 }
