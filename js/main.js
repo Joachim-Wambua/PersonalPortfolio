@@ -1,3 +1,61 @@
+window.addEventListener("load", () => {
+    document.querySelector(".main").classList.remove("hidden");
+    document.querySelector(".home-section").classList.add("active");
+    // Page Loader
+    document.querySelector(".page-loader").classList.add("fade-out");
+    setTimeout(() => {
+        document.querySelector(".page-loader").style.display = "none";
+    },600);
+});
+
+// Toggle NavBar
+const navToggler = document.querySelector(".nav-toggler");
+navToggler.addEventListener("click", () => {
+    hideSection();
+    toggleNavBar();
+    document.body.classList.toggle("hide-scrolling");
+})
+
+// Function to hide inactive sections
+function hideSection() {
+    document.querySelector("section.active").classList.toggle("fade-out");
+}
+
+// Function to Show Navigation Bar
+function toggleNavBar() {
+    document.querySelector(".header").classList.toggle("active");
+}
+
+
+// Active Section - Activates and Deactivates active sections
+document.addEventListener("click", (e) => {
+    if (e.target.classList.contains("link-item") && e.target.hash !== "") {
+        // Activating Overlay to prevent multiple clicks
+        document.querySelector(".overlay").classList.add("active");
+        navToggler.classList.add("hide");
+        if(e.target.classList.contains("nav-item")) {
+            toggleNavBar();
+            // console.log("true")
+        }
+        else {
+            // console.log("false"); 
+            hideSection();
+            document.body.classList.add("hide-scrolling");
+        }
+        setTimeout(() => {
+            document.querySelector("section.active").classList.remove("active", "fade-out");
+            document.querySelector(e.target.hash).classList.add("active");
+            window.scrollTo(0,0);
+            document.body.classList.remove("hide-scrolling");
+            navToggler.classList.remove("hide");
+        document.querySelector(".overlay").classList.remove("active");
+
+
+        },500);
+    }
+});
+
+
 // About Section
 const tabsContainer = document.querySelector(".about-tabs"),
 aboutSection = document.querySelector(".about-section");
@@ -22,7 +80,7 @@ document.addEventListener ("click", (e) => {
         document.querySelector(".portfolio-popup").scrollTo(0,0);
         portfolioItemDetails(e.target.parentElement);
     }
-})
+});
 
 function togglePortfolioPopup() {
     document.querySelector(".portfolio-popup").classList.toggle("open");
@@ -38,7 +96,7 @@ document.addEventListener("click", (e) => {
     if(e.target.classList.contains("pp-inner")) {
         togglePortfolioPopup();
     }
-}) 
+});
 
 
 // Personalise Porfolio PopUps According to User Choice
